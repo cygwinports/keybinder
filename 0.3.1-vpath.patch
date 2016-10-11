@@ -1,0 +1,8 @@
+--- origsrc/keybinder-0.3.1/lua-keybinder/Makefile.am	2015-11-06 09:33:20.000000000 -0600
++++ src/keybinder-0.3.1/lua-keybinder/Makefile.am	2016-10-10 23:54:28.003446800 -0500
+@@ -1,4 +1,4 @@
+-AM_CPPFLAGS = $(LUA_INCLUDE) $(GTK_CFLAGS) -I../libkeybinder
++AM_CPPFLAGS = $(LUA_INCLUDE) $(GTK_CFLAGS) -I$(top_srcdir)/libkeybinder
+ 
+ AM_CFLAGS = -Wall
+ 

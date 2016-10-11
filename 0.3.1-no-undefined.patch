@@ -1,0 +1,35 @@
+--- origsrc/keybinder-0.3.1/libkeybinder/Makefile.am	2015-11-06 09:33:20.000000000 -0600
++++ src/keybinder-0.3.1/libkeybinder/Makefile.am	2016-10-10 23:40:45.123284900 -0500
+@@ -9,7 +9,7 @@ LIBKEYBINDER_VERSION = $(LT_CURRENT):$(L
+ keybinderdir = $(libdir)
+ keybinder_LTLIBRARIES = libkeybinder.la
+ libkeybinder_la_SOURCES = bind.c
+-libkeybinder_la_LDFLAGS = $(GTK_LIBS)  -version-info $(LIBKEYBINDER_VERSION)
++libkeybinder_la_LDFLAGS = $(GTK_LIBS)  -version-info $(LIBKEYBINDER_VERSION) -no-undefined
+ include_HEADERS = keybinder.h
+ 
+ pkgconffile = $(PACKAGE).pc
+--- origsrc/keybinder-0.3.1/lua-keybinder/Makefile.am	2015-11-06 09:33:20.000000000 -0600
++++ src/keybinder-0.3.1/lua-keybinder/Makefile.am	2016-10-10 23:54:28.003446800 -0500
+@@ -4,6 +4,6 @@
+ 
+ luakeybinderdir = $(libdir)/lua/$(LUA_VERSION)
+ luakeybinder_LTLIBRARIES = keybinder.la
+-keybinder_la_LDFLAGS = -module -avoid-version
+-keybinder_la_LIBADD = ../libkeybinder/libkeybinder.la $(LUA_LIB)
++keybinder_la_LDFLAGS = -module -avoid-version -no-undefined
++keybinder_la_LIBADD = ../libkeybinder/libkeybinder.la $(LUA_LIB) -llua-$(LUA_VERSION)
+ keybinder_la_SOURCES = lkeybinder.c
+--- origsrc/keybinder-0.3.1/python-keybinder/Makefile.am	2015-11-06 09:33:20.000000000 -0600
++++ src/keybinder-0.3.1/python-keybinder/Makefile.am	2016-10-10 23:50:42.127627800 -0500
+@@ -5,8 +5,8 @@ AM_CFLAGS = -Wall
+ _keybinderdir = $(pyexecdir)/keybinder
+ _keybinder_LTLIBRARIES = _keybinder.la
+ _keybinder_la_CPPFLAGS = $(AM_CPPFLAGS) $(X_CFLAGS) $(PYEXTRAFLAGS)
+-_keybinder_la_LDFLAGS = -module -avoid-version -export-symbols-regex init_keybinder $(X_LDFLAGS)
+-_keybinder_la_LIBADD = ../libkeybinder/libkeybinder.la $(PYGTK_LIBS)
++_keybinder_la_LDFLAGS = -module -avoid-version -no-undefined -export-symbols-regex init_keybinder $(X_LDFLAGS)
++_keybinder_la_LIBADD = ../libkeybinder/libkeybinder.la $(PYGTK_LIBS) -lpython$(PYTHON_VERSION)
+ _keybinder_la_SOURCES = _keybindermodule.c
+ 
+ nodist__keybinder_la_SOURCES = _keybinder.c

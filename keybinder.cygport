@@ -1,0 +1,32 @@
+inherit gnome2 python
+
+NAME="keybinder"
+VERSION=0.3.1
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="GTK+2 global key bindings library"
+DESCRIPTION="keybinder is a library for registering global keyboard shortcuts.
+Keybinder works with GTK-based applications using the X Window System.
+Bindings for GObject-Introspection, Lua, and Python are included."
+HOMEPAGE="https://github.com/engla/keybinder"
+SRC_URI="${HOMEPAGE}/releases/download/v${VERSION}/keybinder-${VERSION}.tar.gz"
+PATCH_URI="
+	0.3.1-no-undefined.patch
+	0.3.1-vpath.patch
+"
+
+PKG_NAMES="libkeybinder0 libkeybinder-devel libkeybinder-doc
+	   girepository-Keybinder0.0 lua5.1-keybinder python-keybinder"
+libkeybinder0_CONTENTS="usr/bin/cygkeybinder-0.dll usr/share/doc/"
+libkeybinder_devel_CONTENTS="
+	usr/include/keybinder.h
+	usr/lib/libkeybinder.dll.a
+	usr/lib/pkgconfig/keybinder.pc
+"
+libkeybinder_doc_CATEGORY="Doc"
+libkeybinder_doc_CONTENTS="usr/share/gtk-doc/html/keybinder/"
+girepository_Keybinder0_0_CONTENTS="usr/*/gir*-1.0/Keybinder-0.0.*"
+lua5_1_keybinder_CONTENTS="usr/lib/lua/5.1/keybinder.dll"
+python_keybinder_CONTENTS="${PYTHON_SITELIB#/}/keybinder/"
+
+CYGCONF_ARGS="--with-lua-includes=/usr/include/lua-5.1 --with-lua-suffix=-5.1"
